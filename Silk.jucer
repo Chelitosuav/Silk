@@ -2,8 +2,8 @@
 
 <JUCERPROJECT id="O6Sxo9" name="Silk" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Suav City"
-              companyWebsite="www.suavcity.studio" pluginFormats="buildAAX,buildAU,buildStandalone,buildVST3"
-              pluginDesc="3 Band EQ">
+              companyWebsite="www.suavcity.studio" pluginFormats="buildAU,buildStandalone,buildVST3"
+              pluginDesc="3 Band EQ" cppLanguageStandard="17">
   <MAINGROUP id="J8shzA" name="Silk">
     <GROUP id="{FF42F652-C82D-3222-BBA2-8F85174A9C99}" name="Source">
       <FILE id="e3RqHX" name="PluginProcessor.cpp" compile="1" resource="0"
