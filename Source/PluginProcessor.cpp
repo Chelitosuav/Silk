@@ -153,7 +153,7 @@ void SilkAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::M
     // interleaved by keeping the same state.
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* channe1Data = buffer.getWritePointer (channel);
+        auto* channelData = buffer.getWritePointer (channel);
 
         // ..do something to the data...
     }
