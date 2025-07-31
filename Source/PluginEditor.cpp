@@ -30,7 +30,7 @@ void SilkAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (juce::FontOptions (22.f));
-    g.drawFittedText ("Chelitosuav", getLocalBounds(), juce::Justification::centred, 1);
+    g.drawFittedText ("Chelitosuav is amazing", getLocalBounds(), juce::Justification::centred, 1);
 }
 
 void SilkAudioProcessorEditor::resized()
