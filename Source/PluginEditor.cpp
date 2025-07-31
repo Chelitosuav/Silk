@@ -29,8 +29,8 @@ void SilkAudioProcessorEditor::paint (juce::Graphics& g)
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
 
     g.setColour (juce::Colours::white);
-    g.setFont (juce::FontOptions (15.0f));
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.setFont (juce::FontOptions (22.f));
+    g.drawFittedText ("Chelitosuav", getLocalBounds(), juce::Justification::centred, 1);
 }
 
 void SilkAudioProcessorEditor::resized()
