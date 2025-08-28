@@ -167,7 +167,7 @@ bool SilkAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* SilkAudioProcessor::createEditor()
 {
-    return new SilkAudioProcessorEditor (*this);
+     return new SilkAudioProcessorEditor (*this);
    // return new juce::GenericAudioProcessorEditor (*this);
 }
 
