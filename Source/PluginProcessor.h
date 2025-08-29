@@ -10,6 +10,16 @@
 
 #include <JuceHeader.h>
 
+
+//struct Chainsettings {
+  //  float peakFreq {0}, peakGainIndecibels {0}, pealQUality {1.f};
+  //  float lowCutFreq {0}, highCutFreq {0};
+  //  int lowCutSlope {0}, highCutSlope {0};
+//};
+
+
+
+
 //==============================================================================
 /**
 */
@@ -57,13 +67,14 @@ public:
     juce::AudioProcessorValueTreeState apvts {*this, nullptr, "Parameters", createParameterLayout()};
 
 private:
-    using Filter = juce::dsp::IIR::Filter<float>;
+ //   using Filter = juce::dsp::IIR::Filter<float>;
     
-    using CutFilter = juce::dsp::ProcessorChain<Filter, Filter, Filter, Filter> ;
+ //   using CutFilter = juce::dsp::ProcessorChain<Filter, Filter, Filter, Filter> ;
     
-    using MonoChain = juce::dsp::ProcessorChain<CutFilter, Filter, CutFilter>;
+  //  using MonoChain = juce::dsp::ProcessorChain<CutFilter, Filter, CutFilter> ;
+
     
-    MonoChain leftChain, rightChain;
+  //  MonoChain leftChain, rightChain;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SilkAudioProcessor)
 };
