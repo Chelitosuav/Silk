@@ -97,16 +97,16 @@ void SilkAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     
- //   juce::dsp::ProcessSpec spec;
+    juce::dsp::ProcessSpec spec;
     
- //   spec.maximumBlockSize = samplesPerBlock;
+    spec.maximumBlockSize = samplesPerBlock;
     
- //   spec.numChannels = 1;
+    spec.numChannels = 1;
     
- //   spec.sampleRate = sampleRate;
+    spec.sampleRate = sampleRate;
     
-//    leftChain.prepare(spec);
-//    rightChain.prepare(spec);
+    leftChain.prepare(spec);
+    rightChain.prepare(spec);
     
     
     
@@ -160,36 +160,21 @@ void SilkAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::M
     // This is here to avoid people getting screaming feedback
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
- 
-       for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-            buffer.clear (i, 0, buffer.getNumSamples());
+        
+        for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+               buffer.clear (i, 0, buffer.getNumSamples());
+        
+           juce::dsp::AudioBlock<float>block(buffer);
+        
+           auto leftBlock = block.getSingleChannelBlock(0);
+           auto rightBlock = block.getSingleChannelBlock(1);
+        
+            juce::dsp::ProcessContextReplacing<float> leftContext (leftBlock);
+          juce::dsp::ProcessContextReplacing<float> rightContext (rightBlock);
+        
+            leftChain.process(leftContext);
+          rightChain.process(rightContext);
     
-    // This is the place where you'd normally do the guts of your plugin's
-       // audio processing...
-       // Make sure to reset the state if your inner loop is processing
-       // the samples and the outer loop is handling the channels.
-       // Alternatively, you can process the samples with the channels
-       // interleaved by keeping the same state.
-    
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
-        
-        
-          //  for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        //       buffer.clear (i, 0, buffer.getNumSamples());
-        
-        //   juce::dsp::AudioBlock<float>block(buffer);
-        
-        //   auto leftBlock = block.getSingleChannelBlock(0);
-        //   auto rightBlock = block.getSingleChannelBlock(1);
-        
-        //    juce::dsp::ProcessContextReplacing<float> leftContext (leftBlock);
-        //  juce::dsp::ProcessContextReplacing<float> rightContext (rightBlock);
-        
-        //    leftChain.process(leftContext);
-        //  rightChain.process(rightContext);
-    }
 }
 
 //==============================================================================
