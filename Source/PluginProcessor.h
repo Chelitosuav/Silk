@@ -10,6 +10,15 @@
 
 #include <JuceHeader.h>
 
+struct Chainsettings
+{
+    float peakFreq {0}, peakGainInDecibels{0}, peakQuality {1.f};
+    float lowCutFreq {0}, highCutFreq {0};
+    int lowCutSLope {0}, highCutSlope {0};
+};
+
+Chainsettings getChainSettings(juce::AudioProcessorValueTreeState& apvts);
+
 
 //struct Chainsettings {
   //  float peakFreq {0}, peakGainIndecibels {0}, pealQUality {1.f};
