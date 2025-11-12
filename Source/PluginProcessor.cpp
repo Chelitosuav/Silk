@@ -117,8 +117,18 @@ void SilkAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     *leftChain.get<ChainPositions::Peak>().coefficients= *peakCoefficients;
     *rightChain.get<ChainPositions::Peak>().coefficients= *peakCoefficients;
     
+    auto cutCoefficients = juce::dsp::FilterDesign<float>::designIIRHighpassHighOrderButterworthMethod(chainSettings.lowCutFreq,
+                                                                                                       sampleRate,
+                                                                                                    2 * (chainSettings.lowCutSlope+1));
+
+    auto& leftLowCut = leftChain.get<ChainPositions::LowCut>();
     
-    
+    leftLowCut.setBypassed<0>(true);
+    leftLowCut.setBypassed<1>(true);
+    leftLowCut.setBypassed<2>(true);
+    leftLowCut.setBypassed<3>(true);
+
+
 }
 
 
@@ -233,8 +243,8 @@ Chainsettings getChainSettings(juce::AudioProcessorValueTreeState& apvts)
     settings.peakFreq = apvts.getRawParameterValue("Peak Freq")->load();
     settings.peakGainInDecibels = apvts.getRawParameterValue("Peak Gain")->load();
     settings.peakQuality = apvts.getRawParameterValue("Peak Quality")->load();
-    settings.lowCutSLope = apvts.getRawParameterValue("LowCut Slope")->load();
-    settings.highCutSlope = apvts.getRawParameterValue("HighCut Slope")->load();
+    settings.lowCutSlope = static_cast<Slope>(apvts.getRawParameterValue("LowCut Slope")->load());
+    settings.highCutSlope = static_cast<Slope>(apvts.getRawParameterValue("HighCut Slope")->load());
     
     
     
@@ -272,8 +282,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout SilkAudioProcessor:: createP
     
     layout.add(std::make_unique<juce::AudioParameterFloat>("Peak Quality",
                                                            "Peak Quality",
-                                                           juce::NormalisableRange<float>(0.1f, 10.0f, 0.05f,1.f),
-                                                           1.0f));
+                                                           juce::NormalisableRange<float>(0.1f, 10.0f, 0.05f,1.f),1.f));
+    
     juce::StringArray stringArray;
     for( int i = 0; i < 4; ++i )
     {
